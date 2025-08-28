@@ -1,395 +1,95 @@
-//function to conver innerText to number
-function togetTextToNumber(id) {
-  const innerTextValue = document.getElementById(id).innerText;
-  const valueConvertToNumber = parseInt(innerTextValue);
-  return valueConvertToNumber;
+// Function for get elements
+function getEl(str) {
+  const el = document.querySelector(str);
+  return el;
 }
-// function when button click coin subtraction
-function toSubtraction(id) {
-  const balance = togetTextToNumber("coin");
-  if (balance < 20) {
-    alert("Insufficient Balance! minimum 20 coin need to call");
+
+// Convert an elements inner text into Number
+function strToNum(el) {
+  const num = Number.parseInt(el.textContent);
+  return num;
+}
+
+// makes alert
+function alertFunc(str) {
+  return alert(str);
+}
+
+const hotlineContainer = getEl("#hotline-container");
+const historyContainer = getEl("#history-container");
+const clearBtn = getEl("#clear-btn");
+
+// Calculates an elements inner text with + 1
+function addCount(el) {
+  const value = strToNum(el);
+  el.textContent = value + 1;
+}
+
+function reduceCoin() {
+  const coinEl = getEl("#nav-coin");
+  const coin = strToNum(coinEl);
+  if (coin < 20) {
+    alertFunc(
+      "Insufficient Balance! minimum 20 coin need to call!"
+    );
     return false;
+  } else {
+    coinEl.textContent = coin - 20;
+    return true;
   }
-  const callRate = balance - 20;
-  // console.log(callRate);
-  document.getElementById(id).innerText = callRate;
-  return true;
 }
 
-//all call button working start here
-const historyData = [];
-//national emergency
-document
-  .getElementById("national-emergency-call")
-  .addEventListener("click", function () {
-    const callRateBalance = toSubtraction("coin");
-
-    if (callRateBalance != true) {
-      return;
-    }
-
-    const data = {
-      serviceName: "National Emergency Number",
-      serviceNumber: 999,
-      date: new Date().toLocaleTimeString(),
-    };
-    alert("calling" + " " + data.serviceName + " " + data.serviceNumber);
-
-    historyData.push(data);
-    const historyContainer = document.getElementById("history-container");
-    historyContainer.innerText = "";
-
-    for (const data of historyData) {
-      const div = document.createElement("div");
-      div.innerHTML = `
-        <div
-                class="flex justify-between items-center p-4 shadow-lg bg-[#FAFAFA] rounded-xl gap-y-2"
-              >
-                <div>
-                  <h1 class="font-bold text-xs md:text-xl  lg:text-xl">${data.serviceName}</h1>
-                  <p>${data.serviceNumber}</p>
-                </div>
-                <p>${data.date}</p>
+function makeHistoryCard(title, hotline) {
+  const time = new Date().toLocaleTimeString();
+  const card = `
+            <div
+              class="p-4 rounded-lg bg-[#FAFAFA] flex justify-between items-center gap-1.5 shadow-sm shadow-[#00000026]"
+            >
+              <div>
+                <h4 class="text-lg lg:font-medium">${title}</h4>
+                <span class="text-[#5C5C5C]">${hotline}</span>
               </div>
-        
-        `;
+              <span>${time}</span>
+            </div>
+  `;
+  const div = document.createElement("div");
+  div.innerHTML = card;
 
-      historyContainer.appendChild(div);
-    }
-  });
-//Police helpline
-document
-  .getElementById("police-helpline-call")
-  .addEventListener("click", function () {
-    const callRateBalance = toSubtraction("coin");
-    if (callRateBalance != true) {
-      return;
-    }
+  return div;
+}
 
-    const data = {
-      serviceName: "Police Helpline Number",
-      serviceNumber: 999,
-      date: new Date().toLocaleTimeString(),
-    };
-    alert("calling" + " " + data.serviceName + " " + data.serviceNumber);
-
-    historyData.push(data);
-    const historyContainer = document.getElementById("history-container");
-    historyContainer.innerText = "";
-
-    for (const data of historyData) {
-      const div = document.createElement("div");
-      div.innerHTML = `
-        <div
-                class="flex justify-between items-center p-4 shadow-lg bg-[#FAFAFA] rounded-xl gap-y-2"
-              >
-                <div>
-                  <h1 class="font-bold text-xs md:text-xl  lg:text-xl">${data.serviceName}</h1>
-                  <p>${data.serviceNumber}</p>
-                </div>
-                <p>${data.date}</p>
-              </div>
-        
-        `;
-
-      historyContainer.appendChild(div);
-    }
-  });
-//fire service
-document
-  .getElementById("fire-service-btn")
-  .addEventListener("click", function () {
-    const callRateBalance = toSubtraction("coin");
-    if (callRateBalance != true) {
-      return;
-    }
-
-    const data = {
-      serviceName: "Fire Service Number",
-      serviceNumber: 999,
-      date: new Date().toLocaleTimeString(),
-    };
-    alert("calling" + " " + data.serviceName + " " + data.serviceNumber);
-
-    historyData.push(data);
-    const historyContainer = document.getElementById("history-container");
-    historyContainer.innerText = "";
-
-    for (const data of historyData) {
-      const div = document.createElement("div");
-      div.innerHTML = `
-        <div
-                class="flex justify-between items-center p-4 shadow-lg bg-[#FAFAFA] rounded-xl gap-y-2"
-              >
-                <div>
-                  <h1 class="font-bold text-xs md:text-xl  lg:text-xl">${data.serviceName}</h1>
-                  <p>${data.serviceNumber}</p>
-                </div>
-                <p>${data.date}</p>
-              </div>
-        
-        `;
-
-      historyContainer.appendChild(div);
-    }
-  });
-//ambulance
-document
-  .getElementById("ambulance-service-btn")
-  .addEventListener("click", function () {
-    const callRateBalance = toSubtraction("coin");
-    if (callRateBalance != true) {
-      return;
-    }
-
-    const data = {
-      serviceName: "Ambulance Service",
-      serviceNumber: 1994999999,
-      date: new Date().toLocaleTimeString(),
-    };
-    alert("calling" + " " + data.serviceName + " " + data.serviceNumber);
-    historyData.push(data);
-    const historyContainer = document.getElementById("history-container");
-    historyContainer.innerText = "";
-
-    for (const data of historyData) {
-      const div = document.createElement("div");
-      div.innerHTML = `
-        <div
-                class="flex justify-between items-center p-4 shadow-lg bg-[#FAFAFA] rounded-xl gap-y-2"
-              >
-                <div>
-                  <h1 class="font-bold text-xs md:text-xl  lg:text-xl">${data.serviceName}</h1>
-                  <p>${data.serviceNumber}</p>
-                </div>
-                <p>${data.date}</p>
-              </div>
-        
-        `;
-
-      historyContainer.appendChild(div);
-    }
-  });
-//women and child
-document
-  .getElementById("women-child-btn")
-  .addEventListener("click", function () {
-    const callRateBalance = toSubtraction("coin");
-    if (callRateBalance != true) {
-      return;
-    }
-
-    const data = {
-      serviceName: "Women & Child Helpline",
-      serviceNumber: 109,
-      date: new Date().toLocaleTimeString(),
-    };
-    alert("calling" + " " + data.serviceName + " " + data.serviceNumber);
-
-    historyData.push(data);
-    const historyContainer = document.getElementById("history-container");
-    historyContainer.innerText = "";
-
-    for (const data of historyData) {
-      const div = document.createElement("div");
-      div.innerHTML = `
-        <div
-                class="flex justify-between items-center p-4 shadow-lg bg-[#FAFAFA] rounded-xl gap-y-2"
-              >
-                <div>
-                  <h1 class="font-bold text-xs md:text-xl  lg:text-xl">${data.serviceName}</h1>
-                  <p>${data.serviceNumber}</p>
-                </div>
-                <p>${data.date}</p>
-              </div>
-        
-        `;
-
-      historyContainer.appendChild(div);
-    }
-  });
-
-//Anti-corrupiton
-
-document
-  .getElementById("anti-corruption-btn")
-  .addEventListener("click", function () {
-    const callRateBalance = toSubtraction("coin");
-    if (callRateBalance != true) {
-      return;
-    }
-
-    const data = {
-      serviceName: "Anti-Corruption Helpline",
-      serviceNumber: 106,
-      date: new Date().toLocaleTimeString(),
-    };
-    alert("calling" + " " + data.serviceName + " " + data.serviceNumber);
-
-    historyData.push(data);
-    const historyContainer = document.getElementById("history-container");
-    historyContainer.innerText = "";
-
-    for (const data of historyData) {
-      const div = document.createElement("div");
-      div.innerHTML = `
-        <div
-                class="flex justify-between items-center p-4 shadow-lg bg-[#FAFAFA] rounded-xl gap-y-2"
-              >
-                <div>
-                  <h1 class="font-bold text-xs md:text-xl  lg:text-xl">${data.serviceName}</h1>
-                  <p>${data.serviceNumber}</p>
-                </div>
-                <p>${data.date}</p>
-              </div>
-        
-        `;
-
-      historyContainer.appendChild(div);
-    }
-  });
-//Electricity Helpline
-
-document
-  .getElementById("electricity-btn")
-  .addEventListener("click", function () {
-    const callRateBalance = toSubtraction("coin");
-    if (callRateBalance != true) {
-      return;
-    }
-
-    const data = {
-      serviceName: "Electricity Helpline",
-      serviceNumber: 16216,
-      date: new Date().toLocaleTimeString(),
-    };
-    alert("calling" + " " + data.serviceName + " " + data.serviceNumber);
-    historyData.push(data);
-    const historyContainer = document.getElementById("history-container");
-    historyContainer.innerText = "";
-
-    for (const data of historyData) {
-      const div = document.createElement("div");
-      div.innerHTML = `
-        <div
-                class="flex justify-between items-center p-4 shadow-lg bg-[#FAFAFA] rounded-xl gap-y-2"
-              >
-                <div>
-                  <h1 class="font-bold text-xs md:text-xl  lg:text-xl">${data.serviceName}</h1>
-                  <p>${data.serviceNumber}</p>
-                </div>
-                <p>${data.date}</p>
-              </div>
-        
-        `;
-
-      historyContainer.appendChild(div);
-    }
-  });
-
-//Brac helpline
-
-document.getElementById("brac-btn").addEventListener("click", function () {
-  const callRateBalance = toSubtraction("coin");
-  if (callRateBalance != true) {
-    return;
+hotlineContainer.addEventListener("click", (e) => {
+  const target = e.target;
+  const card = e.target.closest(".card");
+  const serviceTitle =
+    card.children[1].children[0].children[0].textContent.trim();
+  const hotlineNumber =
+    card.children[1].children[1].children[0].textContent.trim();
+  const heartBtn = target.className.includes("card-heart");
+  const copyBtn = target.closest(".copy-btn");
+  const callBtn = target.closest(".call-btn");
+  if (heartBtn) {
+    const heartEl = getEl("#nav-heart");
+    addCount(heartEl);
   }
 
-  const data = {
-    serviceName: "Brac Helpline",
-    serviceNumber: 16445,
-    date: new Date().toLocaleTimeString(),
-  };
-  alert("calling" + " " + data.serviceName + " " + data.serviceNumber);
-  historyData.push(data);
-  const historyContainer = document.getElementById("history-container");
-  historyContainer.innerText = "";
-
-  for (const data of historyData) {
-    const div = document.createElement("div");
-    div.innerHTML = `
-        <div
-                class="flex justify-between items-center p-4 shadow-lg bg-[#FAFAFA] rounded-xl gap-y-2"
-              >
-                <div>
-                  <h1 class="font-bold text-xs md:text-xl  lg:text-xl">${data.serviceName}</h1>
-                  <p>${data.serviceNumber}</p>
-                </div>
-                <p>${data.date}</p>
-              </div>
-        
-        `;
-
-    historyContainer.appendChild(div);
+  if (copyBtn) {
+    const heartEl = getEl("#nav-copy");
+    addCount(heartEl);
+    alertFunc(`The number has been copied ${hotlineNumber}`);
+    navigator.clipboard.writeText(hotlineNumber);
   }
-});
-//Bangladesh Railway Helpline
-document.getElementById("railway-btn").addEventListener("click", function () {
-  const callRateBalance = toSubtraction("coin");
-  if (callRateBalance != true) {
-    return;
-  }
+  if (callBtn) {
+    const canCall = reduceCoin();
+    const callHistoryCard = makeHistoryCard(serviceTitle, hotlineNumber);
 
-  const data = {
-    serviceName: "Bangladesh Railway Helpline",
-    serviceNumber: 163,
-    date: new Date().toLocaleTimeString(),
-  };
-  alert("calling" + " " + data.serviceName + " " + data.serviceNumber);
-
-  historyData.push(data);
-  const historyContainer = document.getElementById("history-container");
-  historyContainer.innerText = "";
-
-  for (const data of historyData) {
-    const div = document.createElement("div");
-    div.innerHTML = `
-        <div
-                class="flex justify-between items-center p-4 shadow-lg bg-[#FAFAFA] rounded-xl gap-y-2"
-              >
-                <div>
-                  <h1 class="font-bold text-xs md:text-xl  lg:text-xl">${data.serviceName}</h1>
-                  <p>${data.serviceNumber}</p>
-                </div>
-                <p>${data.date}</p>
-              </div>
-        
-        `;
-
-    historyContainer.appendChild(div);
+    if (canCall) {
+      historyContainer.append(callHistoryCard);
+      alertFunc(`Calling ${serviceTitle} ${hotlineNumber}`);
+    }
   }
 });
 
-document.getElementById("clear-btn").addEventListener("click", function () {
-    historyData.length = 0;
-  document.getElementById("history-container").style.display = "none";
+clearBtn.addEventListener("click", () => {
+  historyContainer.innerHTML = "";
 });
-//like count section
-document;
-const likeBtns = document.getElementsByClassName("like-btn");
-for (const likeBtn of likeBtns) {
-  likeBtn.addEventListener("click", function () {
-    const likeCount = togetTextToNumber("like-count");
-    const newLikeCount = likeCount + 1;
-    document.getElementById("like-count").innerText = newLikeCount;
-  });
-}
-//  copy count
-
-document;
-const copyBtns = document.getElementsByClassName("copy-btn");
-
-for (const copyBtn of copyBtns) {
-  copyBtn.addEventListener("click", function () {
-    const title = copyBtn.parentElement.parentElement;
-    const childInnerText = title.children[3].innerText;
-
-    alert("The number has been copied" + " " + childInnerText);
-    navigator.clipboard.writeText(childInnerText);
-
-    const copyCount = togetTextToNumber("copy-count");
-    const newCopyCount = copyCount + 1;
-    document.getElementById("copy-count").innerText = newCopyCount;
-  });
-}
